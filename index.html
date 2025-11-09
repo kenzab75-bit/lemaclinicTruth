@@ -3,1413 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LemaClinic Truth - La vérité éclaire toujours</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    <style>
-        :root {
-            /* Palette de couleurs avancée */
-            --primary-red: #dc2626;
-            --dark-red: #991b1b;
-            --light-red: #fecaca;
-            --accent-red: #ef4444;
-            --neon-red: #ff0000;
-            
-            /* Backgrounds sophistiqués */
-            --dark-bg: #0a0a0a;
-            --darker-bg: #030303;
-            --surface-bg: #111111;
-            --elevated-bg: #1a1a1a;
-            
-            /* Glass morphism avancé */
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-bg-strong: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-border-strong: rgba(255, 255, 255, 0.15);
-            
-            /* Ombres et effets */
-            --shadow-glow: 0 0 40px rgba(220, 38, 38, 0.3);
-            --shadow-intense: 0 0 80px rgba(220, 38, 38, 0.5);
-            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.3);
-            
-            /* Animations timing */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
-            --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        * {
-            scroll-behavior: smooth;
-        }
-
-        /* Typographie avancée */
-        .font-display { font-family: 'Playfair Display', serif; }
-        .font-body { font-family: 'Inter', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-
-        /* Glass morphism ultra-premium */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-subtle), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .glass-strong {
-            background: var(--glass-bg-strong);
-            backdrop-filter: blur(32px) saturate(200%);
-            -webkit-backdrop-filter: blur(32px) saturate(200%);
-            border: 1px solid var(--glass-border-strong);
-            box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
-
-        .glass-card {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.05) 50%, 
-                rgba(255, 255, 255, 0.02) 100%);
-            backdrop-filter: blur(28px) saturate(180%);
-            -webkit-backdrop-filter: blur(28px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 
-                0 24px 48px rgba(0, 0, 0, 0.4),
-                0 8px 16px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        /* Hero background ultra-sophistiqué */
-        .hero-bg {
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.2) 0%, transparent 60%),
-                radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 40% 40%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
-                conic-gradient(from 0deg at 50% 50%, 
-                    var(--darker-bg) 0deg, 
-                    var(--dark-bg) 90deg, 
-                    var(--surface-bg) 180deg, 
-                    var(--dark-bg) 270deg, 
-                    var(--darker-bg) 360deg),
-                linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 50%, var(--surface-bg) 100%);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 200% 200%, cover;
-            background-position: center;
-            position: relative;
-            min-height: 100vh;
-            padding-top: 120px;
-            overflow: hidden;
-        }
-
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(10,10,10,0.9) 30%, rgba(17,17,17,0.85) 70%, rgba(0,0,0,0.95) 100%),
-                radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-        }
-
-        /* Système de particules avancé */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .particle-red {
-            background: radial-gradient(circle, rgba(220, 38, 38, 0.8) 0%, rgba(220, 38, 38, 0.4) 50%, transparent 100%);
-            animation: particle-float-red 25s linear infinite;
-        }
-
-        .particle-white {
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
-            animation: particle-float-white 30s linear infinite;
-        }
-
-        .particle-glow {
-            background: radial-gradient(circle, rgba(239, 68, 68, 1) 0%, rgba(239, 68, 68, 0.5) 30%, transparent 70%);
-            animation: particle-glow 20s linear infinite;
-            filter: blur(1px);
-        }
-
-        @keyframes particle-float-red {
-            0% {
-                transform: translateY(100vh) translateX(-20px) rotate(0deg);
-                opacity: 0;
-                scale: 0.5;
-            }
-            10% {
-                opacity: 1;
-                scale: 1;
-            }
-            90% {
-                opacity: 1;
-                scale: 1.2;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px) rotate(360deg);
-                opacity: 0;
-                scale: 0.3;
-            }
-        }
-
-        @keyframes particle-float-white {
-            0% {
-                transform: translateY(100vh) translateX(20px) rotate(0deg);
-                opacity: 0;
-                scale: 0.3;
-            }
-            15% {
-                opacity: 0.8;
-                scale: 0.8;
-            }
-            85% {
-                opacity: 0.8;
-                scale: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(-80px) rotate(-360deg);
-                opacity: 0;
-                scale: 0.2;
-            }
-        }
-
-        @keyframes particle-glow {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0.5);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-                transform: translateY(80vh) translateX(10px) scale(1);
-            }
-            80% {
-                opacity: 1;
-                transform: translateY(20vh) translateX(-10px) scale(1.5);
-            }
-            100% {
-                transform: translateY(-10vh) translateX(20px) scale(0.3);
-                opacity: 0;
-            }
-        }
-
-        /* Animations ultra-sophistiquées */
-        .floating-advanced {
-            animation: floating-advanced 8s var(--ease-in-out-quart) infinite;
-        }
-
-        @keyframes floating-advanced {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg) scale(1);
-            }
-            25% { 
-                transform: translateY(-15px) rotate(1deg) scale(1.02);
-            }
-            50% { 
-                transform: translateY(-25px) rotate(0deg) scale(1.05);
-            }
-            75% { 
-                transform: translateY(-15px) rotate(-1deg) scale(1.02);
-            }
-        }
-
-        .pulse-glow-advanced {
-            animation: pulse-glow-advanced 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow-advanced {
-            0%, 100% { 
-                box-shadow: 
-                    0 0 20px rgba(220, 38, 38, 0.4),
-                    0 0 40px rgba(220, 38, 38, 0.2),
-                    0 0 60px rgba(220, 38, 38, 0.1),
-                    inset 0 0 20px rgba(220, 38, 38, 0.1);
-                filter: brightness(1) saturate(1);
-            }
-            50% { 
-                box-shadow: 
-                    0 0 30px rgba(220, 38, 38, 0.8),
-                    0 0 60px rgba(220, 38, 38, 0.6),
-                    0 0 90px rgba(220, 38, 38, 0.4),
-                    0 0 120px rgba(220, 38, 38, 0.2),
-                    inset 0 0 30px rgba(220, 38, 38, 0.2);
-                filter: brightness(1.2) saturate(1.3);
-            }
-        }
-
-        /* Effets de texte premium */
-        .text-gradient-advanced {
-            background: linear-gradient(135deg, 
-                #ffffff 0%, 
-                #f8fafc 25%, 
-                #e2e8f0 50%, 
-                #f8fafc 75%, 
-                #ffffff 100%);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient-shift 6s ease-in-out infinite;
-        }
-
-        .text-red-gradient-advanced {
-            background: linear-gradient(135deg, 
-                #dc2626 0%, 
-                #ef4444 25%, 
-                #f87171 50%, 
-                #ef4444 75%, 
-                #dc2626 100%);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient-shift-red 8s ease-in-out infinite;
-        }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes gradient-shift-red {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* Effets hover 3D ultra-avancés */
-        .hover-lift-3d {
-            transition: all 0.6s var(--ease-out-expo);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .hover-lift-3d:hover {
-            transform: 
-                translateY(-20px) 
-                rotateX(5deg) 
-                rotateY(5deg) 
-                scale(1.05);
-            box-shadow: 
-                0 40px 80px rgba(0, 0, 0, 0.5),
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(220, 38, 38, 0.3);
-        }
-
-        .hover-lift-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 50%, 
-                rgba(220, 38, 38, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.6s var(--ease-out-expo);
-            border-radius: inherit;
-        }
-
-        .hover-lift-3d:hover::before {
-            opacity: 1;
-        }
-
-        /* Boutons premium avec effets de brillance */
-        .btn-premium-advanced {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, 
-                var(--primary-red) 0%, 
-                var(--accent-red) 50%, 
-                var(--dark-red) 100%);
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            transition: all 0.4s var(--ease-out-expo);
-            box-shadow: 
-                0 8px 24px rgba(220, 38, 38, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-premium-advanced::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.4) 50%, 
-                transparent 100%);
-            transition: left 0.8s var(--ease-out-expo);
-        }
-
-        .btn-premium-advanced::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 50%, 
-                rgba(0, 0, 0, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.4s var(--ease-out-expo);
-        }
-
-        .btn-premium-advanced:hover::before {
-            left: 100%;
-        }
-
-        .btn-premium-advanced:hover::after {
-            opacity: 1;
-        }
-
-        .btn-premium-advanced:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 
-                0 16px 32px rgba(220, 38, 38, 0.4),
-                0 8px 16px rgba(220, 38, 38, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        /* Navigation avec indicateurs animés */
-        .nav-link-advanced {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s var(--ease-out-expo);
-        }
-
-        .nav-link-advanced::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-red), var(--accent-red));
-            transition: width 0.4s var(--ease-out-expo);
-        }
-
-        .nav-link-advanced::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(220, 38, 38, 0.1) 0%, 
-                transparent 50%, 
-                rgba(220, 38, 38, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s var(--ease-out-expo);
-        }
-
-        .nav-link-advanced:hover::before {
-            width: 100%;
-        }
-
-        .nav-link-advanced:hover::after {
-            opacity: 1;
-        }
-
-        /* Timeline interactive */
-        .timeline-container {
-            position: relative;
-            padding: 4rem 0;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                var(--primary-red) 10%, 
-                var(--accent-red) 50%,
-                var(--primary-red) 90%, 
-                transparent 100%);
-            transform: translateX(-50%);
-            box-shadow: 
-                0 0 20px rgba(220, 38, 38, 0.5),
-                0 0 40px rgba(220, 38, 38, 0.3);
-            animation: timeline-pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes timeline-pulse {
-            0%, 100% {
-                box-shadow: 
-                    0 0 20px rgba(220, 38, 38, 0.5),
-                    0 0 40px rgba(220, 38, 38, 0.3);
-            }
-            50% {
-                box-shadow: 
-                    0 0 30px rgba(220, 38, 38, 0.8),
-                    0 0 60px rgba(220, 38, 38, 0.5),
-                    0 0 90px rgba(220, 38, 38, 0.3);
-            }
-        }
-
-        .timeline-item {
-            position: relative;
-            margin: 4rem 0;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, var(--accent-red) 0%, var(--primary-red) 100%);
-            border-radius: 50%;
-            border: 4px solid var(--dark-bg);
-            box-shadow: 
-                0 0 20px rgba(220, 38, 38, 0.6),
-                0 0 40px rgba(220, 38, 38, 0.4);
-            z-index: 10;
-            animation: dot-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes dot-pulse {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-                box-shadow: 
-                    0 0 20px rgba(220, 38, 38, 0.6),
-                    0 0 40px rgba(220, 38, 38, 0.4);
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                box-shadow: 
-                    0 0 30px rgba(220, 38, 38, 0.8),
-                    0 0 60px rgba(220, 38, 38, 0.6);
-            }
-        }
-
-        /* Scroll indicator avancé */
-        .scroll-indicator-advanced {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce-advanced 3s ease-in-out infinite;
-        }
-
-        @keyframes bounce-advanced {
-            0%, 20%, 50%, 80%, 100% { 
-                transform: translateX(-50%) translateY(0) scale(1); 
-            }
-            40% { 
-                transform: translateX(-50%) translateY(-15px) scale(1.1); 
-            }
-            60% { 
-                transform: translateX(-50%) translateY(-8px) scale(1.05); 
-            }
-        }
-
-        /* Scrollbar ultra-premium */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--primary-red), var(--dark-red));
-            border-radius: 6px;
-            border: 2px solid var(--dark-bg);
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--accent-red), var(--primary-red));
-            box-shadow: 
-                inset 0 0 6px rgba(0, 0, 0, 0.3),
-                0 0 10px rgba(220, 38, 38, 0.5);
-        }
-
-        /* Responsive ultra-optimisé */
-        @media (max-width: 768px) {
-            .hero-bg {
-                padding-top: 100px;
-            }
-            
-            .timeline-line {
-                left: 2rem;
-            }
-            
-            .timeline-dot {
-                left: 2rem;
-            }
-            
-            .timeline-item {
-                margin-left: 4rem;
-            }
-        }
-
-        /* Effets de loading et transitions */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s var(--ease-out-expo);
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Phrase d'accroche journalistique */
-        .breaking-news {
-            background: linear-gradient(135deg, 
-                rgba(220, 38, 38, 0.1) 0%, 
-                rgba(239, 68, 68, 0.05) 100%);
-            border-left: 4px solid var(--primary-red);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .breaking-news::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(220, 38, 38, 0.1) 50%, 
-                transparent 100%);
-            animation: news-flash 3s ease-in-out infinite;
-        }
-
-        @keyframes news-flash {
-            0%, 100% { left: -100%; }
-            50% { left: 100%; }
-        }
-
-        /* Typewriter effect */
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid var(--primary-red);
-            white-space: nowrap;
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret 0.75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--primary-red); }
-        }
-    </style>
+    <title>LemaClinic Truth — Révélations et protection des patients</title>
+    <meta name="description" content="Plateforme indépendante qui rassemble témoignages et preuves sur les dérives de LemaClinic. Informez-vous, témoignez en sécurité et protégez les futurs patients.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="components/navbar.js" defer></script>
+    <script type="module" src="components/footer.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
-<body class="bg-gray-900 text-white font-body overflow-x-hidden">
-    <!-- Premium Header Ultra-Avancé -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass transition-all duration-500" id="header">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-4" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="relative">
-                        <div class="flex items-center space-x-3">
-                            <div class="relative pulse-glow-advanced rounded-full p-2">
-                                <svg class="h-8 w-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
-                                </svg>
-                                <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-                                <div class="absolute -top-2 -right-2 w-5 h-5 bg-red-500/30 rounded-full animate-pulse"></div>
-                            </div>
-                            <div>
-                                <span class="text-2xl font-bold text-gradient-advanced font-display">LemaClinic</span>
-                                <span class="text-2xl font-bold text-red-gradient-advanced font-display">Truth</span>
-                            </div>
+<body>
+    <custom-navbar></custom-navbar>
+
+    <main>
+        <section class="hero" id="accueil">
+            <div class="container hero__content">
+                <span class="section-kicker hero-badge">Enquête indépendante</span>
+                <h1 class="hero-title">Mettre en lumière la vérité sur <span>LemaClinic</span></h1>
+                <p class="hero-lede">Victimes, journalistes et professionnels de santé unissent leurs forces pour documenter les dérives de la clinique. Notre mission&nbsp;: protéger, informer et obtenir réparation.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#temoigner">Déposer un témoignage</a>
+                    <a class="btn btn-secondary" href="#enquetes">Consulter l'enquête</a>
+                </div>
+                <div class="hero-meta">
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <strong>500+</strong>
+                            <span>Témoignages recueillis depuis 2022</span>
                         </div>
-                    </div>
-                </div>
-                
-                <nav class="hidden lg:flex space-x-8" data-aos="fade-left" data-aos-duration="1000">
-                    <a href="#accueil" class="nav-link-advanced relative text-gray-300 hover:text-white font-medium transition-all duration-300 px-4 py-2 rounded-lg">
-                        Accueil
-                    </a>
-                    <a href="#mon histoire" class="nav-link-advanced relative text-gray-300 hover:text-white font-medium transition-all duration-300 px-4 py-2 rounded-lg">
-                        Mon histoire
-                    </a>
-                    <a href="#s'informer" class="nav-link-advanced relative text-gray-300 hover:text-white font-medium transition-all duration-300 px-4 py-2 rounded-lg">
-                        S'informer
-                    </a>
-                    <a href="#agir" class="nav-link-advanced relative text-gray-300 hover:text-white font-medium transition-all duration-300 px-4 py-2 rounded-lg">
-                        Agir
-                    </a>
-                    <a href="#contact" class="nav-link-advanced relative text-gray-300 hover:text-white font-medium transition-all duration-300 px-4 py-2 rounded-lg">
-                        Contact
-                    </a>
-                </nav>
-
-                <!-- Mobile menu button -->
-                <button class="lg:hidden text-white hover-lift-3d p-2 rounded-lg glass" id="mobile-menu-btn">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section Ultra Premium -->
-    <section class="hero-bg flex items-center justify-center relative" id="accueil">
-        <!-- Système de particules avancé -->
-        <div class="particles">
-            <!-- Particules rouges -->
-            <div class="particle particle-red" style="left: 10%; width: 3px; height: 3px; animation-delay: 0s;"></div>
-            <div class="particle particle-red" style="left: 25%; width: 2px; height: 2px; animation-delay: 3s;"></div>
-            <div class="particle particle-red" style="left: 40%; width: 4px; height: 4px; animation-delay: 6s;"></div>
-            <div class="particle particle-red" style="left: 60%; width: 2px; height: 2px; animation-delay: 9s;"></div>
-            <div class="particle particle-red" style="left: 80%; width: 3px; height: 3px; animation-delay: 12s;"></div>
-            
-            <!-- Particules blanches -->
-            <div class="particle particle-white" style="left: 15%; width: 2px; height: 2px; animation-delay: 2s;"></div>
-            <div class="particle particle-white" style="left: 35%; width: 1px; height: 1px; animation-delay: 5s;"></div>
-            <div class="particle particle-white" style="left: 55%; width: 2px; height: 2px; animation-delay: 8s;"></div>
-            <div class="particle particle-white" style="left: 75%; width: 1px; height: 1px; animation-delay: 11s;"></div>
-            
-            <!-- Particules lumineuses -->
-            <div class="particle particle-glow" style="left: 20%; width: 5px; height: 5px; animation-delay: 1s;"></div>
-            <div class="particle particle-glow" style="left: 50%; width: 4px; height: 4px; animation-delay: 7s;"></div>
-            <div class="particle particle-glow" style="left: 85%; width: 6px; height: 6px; animation-delay: 14s;"></div>
-        </div>
-
-        <div class="hero-content max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <!-- Breaking News Banner -->
-            <div class="breaking-news glass-strong rounded-xl p-4 mb-8 max-w-4xl mx-auto" data-aos="fade-down" data-aos-duration="1000">
-                <div class="flex items-center justify-center space-x-3">
-                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold font-mono uppercase tracking-wider">
-                        ALERTE
-                    </span>
-                    <p class="text-red-400 font-medium text-lg">
-                        Révélations exclusives sur les pratiques de la clinique LEMA DENTAL à Istanbul
-                    </p>
-                </div>
-            </div>
-
-            <!-- Alert Icon Ultra-Premium -->
-            <div class="flex justify-center mb-12" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1200">
-                <div class="relative">
-                    <!-- Effets de rayonnement multiples -->
-                    <div class="absolute inset-0 rounded-full bg-red-500/20 animate-ping" style="animation-duration: 2s;"></div>
-                    <div class="absolute inset-0 rounded-full bg-red-500/15 animate-ping" style="animation-duration: 3s; animation-delay: 0.5s;"></div>
-                    <div class="absolute inset-0 rounded-full bg-red-500/10 animate-pulse" style="animation-duration: 4s;"></div>
-                    
-                    <!-- Icône principale -->
-                    <div class="p-8 bg-gradient-to-br from-red-600 via-red-500 to-red-800 rounded-full pulse-glow-advanced floating-advanced relative z-10 glass-strong">
-                        <svg class="h-20 w-20 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Title avec effet typewriter -->
-            <h1 class="text-7xl lg:text-8xl xl:text-9xl font-black mb-8 leading-none font-display" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1500">
-                <span class="text-gradient-advanced block">LemaClinic</span>
-                <span class="text-red-gradient-advanced block typewriter">Truth</span>
-            </h1>
-
-            <!-- Slogan avec animation -->
-            <p class="text-3xl lg:text-4xl xl:text-5xl mb-12 font-light text-red-400 font-display" data-aos="fade-up" data-aos-delay="900" data-aos-duration="1500">
-                <span class="inline-block" style="animation: gradient-shift 6s ease-in-out infinite;">La vérité éclaire toujours</span>
-            </p>
-
-            <!-- Mission Statement Premium -->
-            <div class="max-w-6xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="1200" data-aos-duration="100">
-                <div class="glass-strong rounded-2xl p-8 lg:p-12 hover-lift-3d">
-                    <p class="text-2xl lg:text-3xl xl:text-4xl font-bold leading-relaxed text-white">
-                        Révéler la vérité, défendre les victimes, face aux abus de Lema Dental Clinic en Turquie.
-                    </p>
-                </div>
-            </div>
-
-            <!-- CTA Buttons Ultra-Premium -->
-            <div class="flex flex-col lg:flex-row gap-6 justify-center items-center" data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000">
-    
-    <!-- Bouton Découvrir mon histoire -->
-    <a href="#mon-histoire" class="btn-premium-advanced px-12 py-6 text-xl font-bold rounded-xl text-white min-w-[300px] group transition-all duration-500 hover-lift-3d">
-        <span class="relative z-10 flex items-center justify-center">
-            <svg class="mr-3 h-6 w-6 transition-transform group-hover:scale-110 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Découvrir mon histoire
-        </span>
-    </a>
-
-    <!-- Bouton Soutenir le projet -->
-    <button class="glass-strong border-2 border-white/30 hover:border-red-500/60 px-12 py-6 text-xl font-bold rounded-xl text-white min-w-[300px] transition-all duration-500 hover-lift-3d group">
-        <span class="flex items-center justify-center">
-            <svg class="mr-3 h-6 w-6 transition-transform group-hover:scale-110 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-            </svg>
-            Soutenir le projet
-        </span>
-    </button>
-</div>
-
-        </div>
-
-        <!-- Scroll Indicator Ultra-Premium -->
-        <div class="scroll-indicator-advanced">
-            <div class="glass-strong w-8 h-12 border-2 border-white/50 rounded-full flex justify-center p-2">
-                <div class="w-2 h-4 bg-gradient-to-b from-red-500 to-transparent rounded-full animate-pulse"></div>
-            </div>
-            <p class="text-white/70 text-sm mt-2 font-mono">SCROLL</p>
-        </div>
-    </section>
-
-    <!-- Timeline Section Interactive -->
-    <section class="py-32 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden" id="histoire">
-        <div class="absolute inset-0 bg-gradient-to-r from-red-900/5 via-transparent to-red-900/5"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-4xl lg:text-4xl font-black text-gradient-advanced mb-8 font-display">
-                    Une mécanique bien étudiée — Anatomie d’une dérive médicale
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto mb-8 rounded-full"></div>
-                <p class="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                    Découvrez comment un système bien rodé a transformé la confiance des patients en instrument de profit.
-                </p>
-            </div>
-
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-                
-                <!-- Timeline Item 1 -->
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
-                    <div class="timeline-dot"></div>
-                    <div class="lg:w-1/2 lg:pr-8">
-                        <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                            <div class="flex items-center mb-4">
-                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold font-mono">Étape 1</span>
-                                <h3 class="text-2xl font-bold text-white ml-4">L’appât commercial</h3>
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">
-                              Lema Dental Clinic vous appâte avec des devis attractifs et un discours rassurant. Sous couvert de soins “haut de gamme”, tout est pensé pour instaurer la confiance et provoquer votre départ vers Istanbul.
-                            </p>
+                        <div class="hero-stat">
+                            <strong>27</strong>
+                            <span>Pays concernés par les signalements</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Timeline Item 2 -->
-                <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
-                    <div class="timeline-dot"></div>
-                    <div class="lg:w-1/2 lg:ml-auto lg:pl-8">
-                        <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                            <div class="flex items-center mb-4">
-                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold font-mono">Étape 2</span>
-                                <h3 class="text-2xl font-bold text-white ml-4">Le piège</h3>
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">
-                               Une fois sur place, vous vous retrouvez pris au piège, entièrement dépendants de la clinique, qui exploite cette position de force pour accélérer les procédures. Les consentements sont signés dans la précipitation, sous pression psychologique et logistique. Refuser devient impensable, au risque de perdre les sommes versées et le séjour déjà engagé.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Timeline Item 3 -->
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
-                    <div class="timeline-dot"></div>
-                    <div class="lg:w-1/2 lg:pr-8">
-                        <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                            <div class="flex items-center mb-4">
-                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold font-mono">Étape 3</span>
-                                <h3 class="text-2xl font-bold text-white ml-4">L’acte destructeur</h3>
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">
-                               Une fois installés dans le fauteuil, vous découvrez des pratiques expéditives où le profit prime sur la santé. Les soins sont réalisés sans véritable diagnostic ni respect des protocoles médicaux. Des dents saines sont taillées inutilement, provoquant douleurs, infections, fractures et atteintes irréversibles à votre intégrité bucco-dentaire.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                 <!-- Timeline Item 2 -->
-                <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
-                    <div class="timeline-dot"></div>
-                    <div class="lg:w-1/2 lg:ml-auto lg:pl-8">
-                        <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                            <div class="flex items-center mb-4">
-                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold font-mono">Étape 4</span>
-                                <h3 class="text-2xl font-bold text-white ml-4">L’abandon total</h3>
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">
-                                De retour dans votre pays, vous ne bénéficiez d’aucun suivi. La clinique se dérobe à toute responsabilité, bloque la communication et vous laisse livrés à vous-mêmes face à des complications graves, physiques comme psychologiques.
-                            </p>
+                        <div class="hero-stat">
+                            <strong>92%</strong>
+                            <span>Des victimes déclarent un suivi inexistant</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="scroll-indicator" aria-hidden="true"></div>
+        </section>
 
-    <!-- Why Section Ultra-Premium -->
-    <section class="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden" id="victimes">
-        <div class="absolute inset-0 bg-gradient-to-r from-red-900/5 via-transparent to-red-900/5"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-5xl lg:text-6xl font-black text-gradient-advanced mb-8 font-display">
-                    Pourquoi LemaClinic Truth ?
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto mb-8 rounded-full"></div>
-                <p class="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                    Face aux abus dissimulés derrière de fausses promesses nous brisons l’omerta pour que la vérité triomphe.
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center mb-8">
-                        <div class="p-4 bg-gradient-to-br from-red-500 to-red-700 rounded-xl mr-6 group-hover:scale-110 transition-transform duration-500 pulse-glow-advanced">
-                            <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white">Victimes silencieuses</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                       Les patients de Lema Dental Clinic subissent des soins fautifs dans un silence organisé. Leur parole doit être entendue, leur dignité rétablie.
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="flex items-center mb-8">
-                        <div class="p-4 bg-gradient-to-br from-red-500 to-red-700 rounded-xl mr-6 group-hover:scale-110 transition-transform duration-500 pulse-glow-advanced">
-                            <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white">Preuves irréfutables</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        LemaClinic Truth centralise témoignages, preuves médicales et expertises 
-                        pour établir la vérité et construire un dossier irréfutable.
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d group" data-aos="fade-up" data-aos-delay="600">
-                    <div class="flex items-center mb-8">
-                        <div class="p-4 bg-gradient-to-br from-red-500 to-red-700 rounded-xl mr-6 group-hover:scale-110 transition-transform duration-500 pulse-glow-advanced">
-                            <svg class="h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white">Justice implacable</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed text-lg">
-                        Notre mission : rendre visibles les abus, alerter les futurs patients, 
-                        protéger et obtenir justice pour toutes les victimes.
-                    </p>
+        <section class="section" id="enquetes">
+            <div class="container">
+                <header class="section-header reveal" data-reveal>
+                    <span class="section-kicker">Analyses clés</span>
+                    <h2 class="section-title">Une clinique aux pratiques contestées</h2>
+                    <p class="section-subtitle">Nous compilons dossiers médicaux, expertises dentaires et enquêtes financières pour établir un faisceau de preuves irréfutable.</p>
+                </header>
+                <div class="highlight-grid">
+                    <article class="highlight-card reveal" data-reveal>
+                        <h3>Promesses marketing trompeuses</h3>
+                        <p>Offres «&nbsp;all inclusive&nbsp;» agressives, photos retouchées, témoignages fictifs… La stratégie commerciale occulte les risques médicaux réels.</p>
+                    </article>
+                    <article class="highlight-card reveal" data-reveal>
+                        <h3>Protocoles médicaux bâclés</h3>
+                        <p>Temps opératoires divisés par deux, examens préopératoires incomplets et hygiène insuffisante entraînent infections, fractures et douleurs chroniques.</p>
+                    </article>
+                    <article class="highlight-card reveal" data-reveal>
+                        <h3>Falsification documentaire</h3>
+                        <p>De multiples dossiers montrent des radiographies modifiées, des consentements signés a posteriori et des factures opaques masquant les dépassements.</p>
+                    </article>
+                    <article class="highlight-card reveal" data-reveal>
+                        <h3>Silence institutionnel</h3>
+                        <p>La clinique use d’intimidation juridique et de clauses abusives pour faire taire les victimes et dissuader les autorités de mener des contrôles.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Enquêtes Section -->
-    <section class="py-32 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden" id="enquetes">
-        <div class="absolute inset-0 bg-gradient-to-r from-red-900/5 via-transparent to-red-900/5"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-5xl lg:text-6xl font-black text-gradient-advanced mb-8 font-display">
-                    La vérité
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto mb-8 rounded-full"></div>
-                <p class="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                    Découvrez les investigations menées pour révéler la vérité sur Lema Dental.
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12">
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center mb-6">
-                        <div class="p-3 bg-gradient-to-br from-red-500 to-red-700 rounded-lg mr-4 pulse-glow-advanced">
-                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
+        <section class="section" id="parcours">
+            <div class="container">
+                <header class="section-header reveal" data-reveal>
+                    <span class="section-kicker">Le schéma récurrent</span>
+                    <h2 class="section-title">Comprendre comment les patients sont piégés</h2>
+                    <p class="section-subtitle">Un même scénario revient dans la quasi-totalité des récits recueillis. Connaître les étapes permet de s’en prémunir et de mieux documenter les abus.</p>
+                </header>
+                <div class="steps">
+                    <article class="step-card reveal" data-reveal>
+                        <div class="step-index">01</div>
+                        <div>
+                            <h3>Promesses de soins miracles</h3>
+                            <p>Avant même toute analyse médicale, un plan de traitement coûteux est imposé. Les discours commerciaux minimisent les complications et promettent une convalescence express.</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">Le Business Model</h3>
-                    </div>
-                    <p class="text-gray-100 leading-relaxed text-lg mb-6">
-                        Lema Clinic, comme beaucoup d'autres en Turquie, fonctionne sur un modèle de volume : plus de patients traités = plus de profits. Cela se traduit par : Consultations express (10-15 minutes en moyenne) ; Sur-traitement systématique (plus de couronnes que nécessaire) ; Rotation rapide du personnel dentaire.
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center mb-6">
-                        <div class="p-3 bg-gradient-to-br from-red-500 to-red-700 rounded-lg mr-4 pulse-glow-advanced">
-                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
+                    </article>
+                    <article class="step-card reveal" data-reveal>
+                        <div class="step-index">02</div>
+                        <div>
+                            <h3>Bloc opératoire surchargé</h3>
+                            <p>Les interventions s’enchaînent sans protocole individualisé. Certains patients reçoivent jusqu’à 24 facettes en une journée, dans des conditions de stérilisation insuffisantes.</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">Le Rôle des Traducteurs</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed text-lg mb-6">
-                        Les traducteurs, présentés comme des "assistants médicaux", sont souvent des étudiants en langue sans aucune formation dentaire. Leurs objectifs : Vous rassurer sur des procédures qu'ils ne comprennent pas eux-mêmes, minimiser vos inquiétudes pour éviter les annulations, nous vendre des options supplémentaires (blanchiment, facettes, etc.)...
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d" data-aos="fade-up" data-aos-delay="600">
-                    <div class="flex items-center mb-6">
-                        <div class="p-3 bg-gradient-to-br from-red-500 to-red-700 rounded-lg mr-4 pulse-glow-advanced">
-                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                            </svg>
+                    </article>
+                    <article class="step-card reveal" data-reveal>
+                        <div class="step-index">03</div>
+                        <div>
+                            <h3>Suivi quasi inexistant</h3>
+                            <p>Une fois rentrés chez eux, les patients n’obtiennent ni dossier complet ni réponses aux complications. Les équipes cessent toute communication et bloquent les contacts.</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">Conditions de Travail</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed text-lg mb-6">
-                        Plusieurs employés anonymes ont décrit une pression intense pour : Terminer les traitements en un temps record ; ignorer les plaintes de douleur des patients.
-                    </p>
-                </div>
-
-                <div class="glass-card rounded-2xl p-10 hover-lift-3d" data-aos="fade-up" data-aos-delay="800">
-                    <div class="flex items-center mb-6">
-                        <div class="p-3 bg-gradient-to-br from-red-500 to-red-700 rounded-lg mr-4 pulse-glow-advanced">
-                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                            </svg>
+                    </article>
+                    <article class="step-card reveal" data-reveal>
+                        <div class="step-index">04</div>
+                        <div>
+                            <h3>Pressions et menaces</h3>
+                            <p>Lorsque les victimes s’expriment, elles reçoivent des menaces de poursuites pour diffamation. Les preuves médicales sont contestées et les remboursements refusés.</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">Documents et Garanties</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed text-lg mb-6">
-                        Les garanties fournies sont souvent incompréhensibles ou comportent des clauses cachées.
-                    </p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
-<!-- Section Mon Histoire -->
-<section id="mon-histoire" class="py-32 bg-gradient-to-br from-gray-950 via-black to-gray-900 relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-r from-red-900/10 via-transparent to-red-900/10"></div>
+        </section>
 
-  <div class="max-w-4xl mx-auto px-6 lg:px-8 relative" data-aos="fade-up" data-aos-duration="200">
-    <div class="text-center mb-16">
-      <h2 class="text-5xl lg:text-6xl font-black text-gradient-advanced mb-6 font-display">Mon Histoire</h2>
-      <div class="w-32 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto mb-8 rounded-full"></div>
-      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-        « Je suis arrivée en Turquie en toute confiance. Je suis repartie en souffrance et en dommage dentaire. »
-      </p>
-    </div>
-
-    <div class="space-y-12 text-gray-300 text-lg leading-relaxed">
-      <p>
-        Je m'appelle <strong>Sophie</strong> (prénom modifié), j'ai 51 ans. En 2025, j'ai choisi la <strong>Lema Dental Clinic</strong>, séduite par sa notoriété sur Instagram et ses tarifs défiant toute concurrence. 
-        Ce qui devait être une simple amélioration esthétique s’est transformé en un véritable <strong>cauchemar dentaire</strong>.
-      </p>
-
-      <div class="space-y-10">
-        <div data-aos="fade-up" data-aos-delay="100">
-          <h3 class="text-2xl font-bold text-white mb-3">Jour 1 — Consultation initiale : la bascule</h3>
-          <p>En quinze minutes, tout est décidé. Ce qui devait être un traitement léger de facettes devient une transformation complète par couronnes. Les explications sont floues, les risques minimisés. Tout semble organisé pour servir l’intérêt financier de la clinique.</p>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="200">
-          <h3 class="text-2xl font-bold text-white mb-3">Jour 2 — Préparation des dents : l’agression</h3>
-          <p>Les dents saines sont meulées de manière agressive, sans sans véritable justification. La douleur est immédiate, mais ignorée. Vous sentez déjà que quelque chose ne va pas, mais tout va trop vite.</p>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="300">
-          <h3 class="text-2xl font-bold text-white mb-3">Jour 3 — Pose des couronnes provisoires : la douleur</h3>
-          <p>Les couronnes sont mal ajustées, provoquant maux de tête, blocage à la machoire et douleurs. Aucune vérification sérieuse, aucune écoute. Le sourire est "vendu", mais la souffrance commence.</p>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="400">
-          <h3 class="text-2xl font-bold text-white mb-3">Retour en France — L'abandon</h3>
-          <p>De retour dans votre pays, vous ne bénéficiez d'aucun suivi. La clinique se dérobe à toute responsabilité, fait semblant de vous aider en espérant que vous finirez par les oublier, puis bloque la communication et vous laisse livrés à vous-mêmes face à des complications graves, physiques comme psychologiques.</p>
-        </div>
-      </div>
-
-      <div class="mt-16" data-aos="fade-up" data-aos-delay="500">
-        <h3 class="text-3xl font-bold text-red-400 mb-6">Ce que j'ai appris</h3>
-        <ul class="list-disc list-inside space-y-3 text-gray-300">
-          <li>Les garanties post-opératoires ne valent que si vous retournez en Turquie pour les faire valoir.</li>
-          <li>Les traducteurs ne sont pas formés médicalement et travaillent pour la clinique.</li>
-          <li>La pression commerciale prime sur l'éthique médicale.</li>
-          <li>Le suivi post-opératoire est inexistant une fois rentré dans votre pays.</li>
-        </ul>
-      </div>
-
-      <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="600">
-        <p class="text-xl text-gray-200 font-semibold max-w-3xl mx-auto">
-          Aujourd'hui, je témoigne pour que d'autres ne vivent pas la même chose. Aucun sourire ne mérite la douleur, la peur ou la perte de confiance dans le corps médical.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- Contact Section Ultra-Premium -->
-<footer class="bg-gradient-to-br from-gray-900 via-black to-gray-900 py-24 relative overflow-hidden" id="contact">
-        <div class="absolute inset-0 bg-gradient-to-r from-red-900/5 via-transparent to-red-900/5"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl lg:text-5xl font-black text-gradient-advanced mb-8 font-display">
-                    Contact Confidentiel
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto mb-8 rounded-full"></div>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-12">
-                <div data-aos="fade-up" data-aos-delay="200">
-                    <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                        <div class="flex items-center space-x-3 mb-8">
-                            <div class="relative pulse-glow-advanced rounded-full p-2">
-                                <svg class="h-8 w-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
-                                </svg>
-                            </div>
-                            <span class="text-2xl font-bold font-display text-gradient-advanced">LemaClinic Truth</span>
-                        </div>
-                        <p class="text-gray-400 text-lg leading-relaxed">
-                            Un mouvement déterminé pour la vérité, la justice et la protection des patients 
-                            face aux abus médicaux.
-                        </p>
+        <section class="section" id="temoignages">
+            <div class="container">
+                <header class="section-header reveal" data-reveal>
+                    <span class="section-kicker">Paroles de victimes</span>
+                    <h2 class="section-title">Des récits concordants à travers le monde</h2>
+                    <p class="section-subtitle">Chaque témoignage est vérifié avant publication. Nous garantissons l’anonymat des victimes qui le souhaitent.</p>
+                </header>
+                <div class="testimonial-slider reveal" data-reveal>
+                    <div class="testimonial-window">
+                        <div class="testimonial-track"></div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-button" type="button" data-slider-prev aria-label="Témoignage précédent">&#8592;</button>
+                        <button class="slider-button" type="button" data-slider-next aria-label="Témoignage suivant">&#8594;</button>
                     </div>
                 </div>
-                
-                <div data-aos="fade-up" data-aos-delay="400">
-                    <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                        <h3 class="text-xl font-bold mb-8 text-gradient-advanced">Liens rapides</h3>
-                        <ul class="space-y-4 text-gray-400">
-                            <li><a href="#histoire" class="hover:text-white transition-colors text-lg nav-link-advanced">Notre histoire</a></li>
-                            <li><a href="#victimes" class="hover:text-white transition-colors text-lg nav-link-advanced">Témoignages</a></li>
-                            <li><a href="#contact" class="hover:text-white transition-colors text-lg nav-link-advanced">Contact confidentiel</a></li>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <div class="container">
+                <header class="section-header reveal" data-reveal>
+                    <span class="section-kicker">Questions fréquentes</span>
+                    <h2 class="section-title">Vos droits et nos garanties</h2>
+                    <p class="section-subtitle">Nous collaborons avec des avocats spécialisés en droit de la santé ainsi qu’avec des chirurgiens-dentistes indépendants pour sécuriser chaque démarche.</p>
+                </header>
+                <div class="faq-grid">
+                    <article class="faq-item reveal" data-reveal>
+                        <h3 class="faq-question">Comment vérifier l’authenticité d’un témoignage&nbsp;?</h3>
+                        <p class="faq-answer">Chaque récit est croisé avec des pièces justificatives&nbsp;: radios, factures, échanges écrits. Une équipe de vérification valide l’ensemble avant publication.</p>
+                    </article>
+                    <article class="faq-item reveal" data-reveal>
+                        <h3 class="faq-question">Mon identité peut-elle rester confidentielle&nbsp;?</h3>
+                        <p class="faq-answer">Oui. Nous chiffrons les données sensibles et ne publions que les informations explicitement autorisées. Vous choisissez le niveau de visibilité de votre témoignage.</p>
+                    </article>
+                    <article class="faq-item reveal" data-reveal>
+                        <h3 class="faq-question">Que se passe-t-il après mon signalement&nbsp;?</h3>
+                        <p class="faq-answer">Un référent vous accompagne pour constituer un dossier solide. Nous vous mettons en relation avec des médecins experts et des associations de patients.</p>
+                    </article>
+                    <article class="faq-item reveal" data-reveal>
+                        <h3 class="faq-question">Puis-je engager une action collective&nbsp;?</h3>
+                        <p class="faq-answer">Nous mutualisons les dossiers similaires pour faciliter les démarches groupées. Nos partenaires juridiques évaluent gratuitement la viabilité de chaque action.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-section" id="temoigner">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <article class="contact-card reveal" data-reveal>
+                        <span class="section-kicker">Signalement sécurisé</span>
+                        <h2 class="section-title">Parlez-nous en toute confiance</h2>
+                        <p>Chaque message est traité de manière confidentielle. Nous pouvons anonymiser votre dossier et vous guider vers les aides adaptées.</p>
+                        <ul>
+                            <li>Canal chiffré &amp; stockage sécurisé</li>
+                            <li>Accompagnement juridique gratuit</li>
+                            <li>Experts médicaux indépendants</li>
                         </ul>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="600">
-                    <div class="glass-card rounded-2xl p-8 hover-lift-3d">
-                        <h3 class="text-xl font-bold mb-8 text-gradient-advanced">Témoigner</h3>
-                        <p class="text-gray-400 mb-8 text-lg leading-relaxed">
-                            Votre témoignage est précieux et sera traité avec la plus grande confidentialité.
-                        </p>
-                        <button class="btn-premium-advanced px-8 py-4 rounded-lg font-bold text-white w-full">
-                            Nous contacter
-                        </button>
-                    </div>
+                    </article>
+                    <form class="contact-card reveal" data-reveal>
+                        <h3>Déposer un témoignage</h3>
+                        <p>Décrivez précisément votre expérience. Nous reviendrons vers vous sous 48&nbsp;heures.</p>
+                        <div class="form-group">
+                            <label for="name">Nom ou pseudonyme</label>
+                            <input id="name" name="name" autocomplete="name" placeholder="Votre nom (facultatif)">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adresse e-mail sécurisée</label>
+                            <input id="email" name="email" type="email" autocomplete="email" placeholder="contact@proton.me">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Votre récit</label>
+                            <textarea id="message" name="message" placeholder="Racontez les faits, dates, intervenants, suites médicales…" required></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Envoyer mon témoignage</button>
+                    </form>
                 </div>
             </div>
-            
-            <div class="border-t border-white/10 mt-16 pt-8 text-center text-gray-400">
-                <p class="text-lg">&copy; 2024 LemaClinic Truth. Tous droits réservés.</p>
-                <p class="text-sm mt-2 font-mono">Plateforme sécurisée pour la protection des témoins</p>
-            </div>
-        </div>
-    </footer>
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS only if available
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 1200,
-                    once: true,
-                    offset: 100,
-                    easing: 'ease-out-cubic'
-                });
-            }
+        </section>
+    </main>
 
-            // Initialize GSAP only if available
-            if (typeof gsap !== 'undefined') {
-                gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
-// Header background transition
-        ScrollTrigger.create({
-            start: "top -80",
-            end: 99999,
-            toggleClass: {className: "glass-strong", targets: "#header"}
-        });
-
-        // Parallax effects for hero background
-        gsap.to(".hero-bg", {
-            backgroundPosition: "50% 100%",
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".hero-bg",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-
-        // Advanced text reveal animations
-        gsap.utils.toArray('.text-gradient-advanced, .text-red-gradient-advanced').forEach(text => {
-            gsap.fromTo(text, 
-                { 
-                    opacity: 0, 
-                    y: 50,
-                    scale: 0.9
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 1.5,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: text,
-                        start: "top 80%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        });
-
-        // Timeline animations
-        gsap.utils.toArray('.timeline-item').forEach((item, index) => {
-            gsap.fromTo(item, 
-                { 
-                    opacity: 0, 
-                    x: index % 2 === 0 ? -100 : 100,
-                    scale: 0.8
-                },
-                {
-                    opacity: 1,
-                    x: 0,
-                    scale: 1,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 80%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        });
-
-        // Cards hover effects
-        gsap.utils.toArray('.glass-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                gsap.to(card, {
-                    scale: 1.02,
-                    rotationY: 5,
-                    rotationX: 5,
-                    duration: 0.6,
-                    ease: "power2.out"
-                });
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, {
-                    scale: 1,
-                    rotationY: 0,
-                    rotationX: 0,
-                    duration: 0.6,
-                    ease: "power2.out"
-                });
-            });
-        });
-
-        // Smooth scrolling with easing - Version corrigée
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const target = document.querySelector(targetId);
-                
-                if (target) {
-                    // Calcul de la position avec offset pour le header fixe
-                    const headerHeight = 100;
-                    const targetPosition = target.offsetTop - headerHeight;
-                    
-                    // Scroll fluide natif comme fallback
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Animation GSAP en plus pour l'effet premium
-                    gsap.to(window, {
-                        duration: 1.2,
-                        scrollTo: {
-                            y: targetPosition,
-                            autoKill: false
-                        },
-                        ease: "power2.inOut"
-                    });
-                }
-            });
-        });
-
-        // Mobile menu with animations
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const nav = document.querySelector('nav');
-        
-        mobileMenuBtn?.addEventListener('click', () => {
-            nav.classList.toggle('hidden');
-            if (!nav.classList.contains('hidden')) {
-                gsap.fromTo(nav, 
-                    { opacity: 0, y: -20 },
-                    { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-                );
-            }
-        });
-
-        // Advanced intersection observer for fade-in effects
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Typewriter effect for hero title
-        const typewriterText = document.querySelector('.typewriter');
-        if (typewriterText) {
-            const text = typewriterText.textContent;
-            typewriterText.textContent = '';
-            
-            gsap.to(typewriterText, {
-                duration: 3,
-                text: text,
-                ease: "none",
-                delay: 2
-            });
-        }
-
-        // Performance optimization: Reduce animations on mobile
-        if (window.innerWidth < 768) {
-            gsap.set('.particle', { display: 'none' });
-        }
-
-        // Preload critical animations
-        gsap.set('.hero-content > *', { opacity: 0, y: 30 });
-        gsap.to('.hero-content > *', {
-            opacity: 1,
-            y: 0,
-            duration: 1.5,
-            stagger: 0.2,
-            ease: "power3.out",
-            delay: 0.5
-        });
-    </script>
-    <script>
-        // FIX LOG: Initialisation sécurisée des librairies
-        document.addEventListener('DOMContentLoaded', function() {
-            // Vérifie si AOS est chargé avant initialisation
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 1200,
-                    once: true,
-                    offset: 100,
-                    easing: 'ease-out-cubic'
-                });
-            }
-
-            // Vérifie si GSAP est chargé avant initialisation
-            if (typeof gsap !== 'undefined') {
-                gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
-
-                // Animation seulement si non mobile
-                if (window.innerWidth >= 768) {
-                    // Parallax effects for hero background
-                    gsap.to(".hero-bg", {
-                        backgroundPosition: "50% 100%",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".hero-bg",
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true
-                        }
-                    });
-                }
-
-                // Smooth scrolling sécurisé
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        const target = document.querySelector(targetId);
-                        
-                        if (target) {
-                            const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-                            const targetPosition = target.offsetTop - headerHeight;
-                            
-                            gsap.to(window, {
-                                duration: 1.2,
-                                scrollTo: {
-                                    y: targetPosition,
-                                    autoKill: false
-                                },
-                                ease: "power2.inOut"
-                            });
-                        }
-                    });
-                });
-            }
-        });
-    </script>
-    <!-- FIX LOG: 
-    1. Supprimé le script deepsite-badge.js non nécessaire
-    2. Déplacé tous les scripts avant la fermeture du body
-    3. Ajouté vérification d'existence des éléments avant GSAP
-    4. Corrigé l'imbrication des balises
-    5. Unifié les initialisations GSAP/AOS
-    -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    <script src="script.js"></script>
+    <custom-footer></custom-footer>
 </body>
 </html>
