@@ -1,77 +1,261 @@
-
 class CustomNavbar extends HTMLElement {
+    constructor() {
+        super();
+        this.handleToggle = this.handleToggle.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+    }
+
     connectedCallback() {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
-<style>
-                nav {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    z-index: 50;
-                    background: rgba(0,0,0,0.8);
-                    backdrop-filter: blur(10px);
-                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-                }
-                .nav-link {
-                    color: rgba(255,255,255,0.8);
-                    transition: all 0.3s ease;
-                }
-                .nav-link:hover {
-                    color: var(--primary-red);
-                }
-            </style>
-            <nav>
-<div class="container mx-auto px-6 py-4">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-2.698-.833-3.468 0L3.342 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                            </svg>
-                            <a href="/" class="text-xl font-bold text-white">LemaClinic Truth</a>
-</div>
-                        <div class="hidden md:flex space-x-8">
-                            <a href="#whistleblow" class="nav-link">Whistleblow</a>
-                            <a href="#stories" class="nav-link">Stories</a>
-                            <a href="#faq" class="nav-link">FAQ</a>
-                            <a href="#contact" class="nav-link">Contact</a>
-                        </div>
-                        <button class="md:hidden focus:outline-none" id="mobile-menu-button">
-                            <i data-feather="menu"></i>
-                        </button>
-                    </div>
-                    <div class="md:hidden hidden mt-4" id="mobile-menu">
-                        <a href="#whistleblow" class="block py-2 nav-link">Whistleblow</a>
-                        <a href="#stories" class="block py-2 nav-link">Stories</a>
-                        <a href="#faq" class="block py-2 nav-link">FAQ</a>
-                        <a href="#contact" class="block py-2 nav-link">Contact</a>
-                    </div>
-                </div>
-            </nav>
             <style>
-                .nav-link {
-                    @apply text-gray-700 hover:text-red-600 transition duration-300;
+                :host {
+                    position: fixed;
+                    inset: 0 auto auto 0;
+                    width: 100%;
+                    z-index: 1000;
                 }
-                #mobile-menu {
-                    transition: all 0.3s ease;
+
+                header {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+                    background: rgba(2, 6, 23, 0.6);
+                    backdrop-filter: blur(18px);
+                    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+                }
+
+                header.is-condensed {
+                    background: rgba(2, 6, 23, 0.85);
+                    border-bottom-color: rgba(148, 163, 184, 0.18);
+                    transform: translateY(-2px);
+                }
+
+                .navbar-container {
+                    width: min(1180px, 92vw);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 1.1rem 0;
+                    gap: 1.5rem;
+                }
+
+                .brand {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    font-family: 'Playfair Display', Georgia, serif;
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    letter-spacing: 0.01em;
+                    color: #f8fafc;
+                }
+
+                .brand span {
+                    display: block;
+                    line-height: 1;
+                }
+
+                .brand svg {
+                    width: 34px;
+                    height: 34px;
+                    color: #f43f5e;
+                    filter: drop-shadow(0 6px 12px rgba(244, 63, 94, 0.35));
+                }
+
+                .sr-only {
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border: 0;
+                }
+
+                nav {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .nav-link {
+                    position: relative;
+                    padding: 0.45rem 0.9rem;
+                    border-radius: 999px;
+                    font-weight: 500;
+                    color: rgba(226, 232, 240, 0.88);
+                    transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+                }
+
+                .nav-link::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border-radius: inherit;
+                    background: rgba(244, 63, 94, 0.14);
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    z-index: -1;
+                }
+
+                .nav-link:hover {
+                    color: #f43f5e;
+                }
+
+                .nav-link:hover::after {
+                    opacity: 1;
+                }
+
+                .menu-toggle {
+                    display: none;
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    border: 1px solid rgba(148, 163, 184, 0.24);
+                    background: rgba(2, 6, 23, 0.75);
+                    color: #e2e8f0;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: transform 0.3s ease, background 0.3s ease;
+                }
+
+                .menu-toggle:hover {
+                    transform: translateY(-2px);
+                    background: rgba(244, 63, 94, 0.22);
+                }
+
+                .menu-toggle span {
+                    display: block;
+                    width: 18px;
+                    height: 2px;
+                    background: currentColor;
+                    position: relative;
+                }
+
+                .menu-toggle span::before,
+                .menu-toggle span::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    width: 18px;
+                    height: 2px;
+                    background: currentColor;
+                    transition: transform 0.3s ease;
+                }
+
+                .menu-toggle span::before {
+                    transform: translateY(-6px);
+                }
+
+                .menu-toggle span::after {
+                    transform: translateY(6px);
+                }
+
+                .menu-toggle[aria-expanded="true"] span {
+                    background: transparent;
+                }
+
+                .menu-toggle[aria-expanded="true"] span::before {
+                    transform: rotate(45deg);
+                }
+
+                .menu-toggle[aria-expanded="true"] span::after {
+                    transform: rotate(-45deg);
+                }
+
+                .mobile-menu {
+                    display: none;
+                    flex-direction: column;
+                    padding: 0 0 1rem;
+                    gap: 0.35rem;
+                }
+
+                .mobile-menu.open {
+                    display: flex;
+                }
+
+                @media (max-width: 860px) {
+                    nav {
+                        display: none;
+                    }
+
+                    .menu-toggle {
+                        display: inline-flex;
+                    }
                 }
             </style>
+            <header>
+                <div class="navbar-container">
+                    <a class="brand" href="#accueil">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2L3 6v6c0 5.25 3.438 10.063 9 12 5.563-1.938 9-6.75 9-12V6l-9-4z" />
+                            <path d="M9 12l2 2 4-4" />
+                        </svg>
+                        <span>LemaClinic Truth</span>
+                    </a>
+                    <nav>
+                        <a class="nav-link" href="#enquetes">Enquête</a>
+                        <a class="nav-link" href="#parcours">Comprendre</a>
+                        <a class="nav-link" href="#temoignages">Témoignages</a>
+                        <a class="nav-link" href="#faq">FAQ</a>
+                        <a class="nav-link" href="#temoigner">Agir</a>
+                    </nav>
+                    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile">
+                        <span></span>
+                        <span class="sr-only">Ouvrir le menu</span>
+                    </button>
+                </div>
+                <div class="navbar-container mobile-menu" id="menu-mobile">
+                    <a class="nav-link" href="#enquetes">Enquête</a>
+                    <a class="nav-link" href="#parcours">Comprendre</a>
+                    <a class="nav-link" href="#temoignages">Témoignages</a>
+                    <a class="nav-link" href="#faq">FAQ</a>
+                    <a class="nav-link" href="#temoigner">Agir</a>
+                </div>
+            </header>
         `;
 
-        // Mobile menu toggle
-        const menuButton = this.querySelector('#mobile-menu-button');
-        const mobileMenu = this.querySelector('#mobile-menu');
-        
-        menuButton.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                feather.replace();
-            } else {
-                mobileMenu.classList.add('hidden');
-            }
+        this.toggleButton = this.shadowRoot.querySelector('.menu-toggle');
+        this.mobileMenu = this.shadowRoot.querySelector('.mobile-menu');
+        this.header = this.shadowRoot.querySelector('header');
+
+        this.toggleButton?.addEventListener('click', this.handleToggle);
+        this.shadowRoot.querySelectorAll('a[href^="#"]').forEach((link) => {
+            link.addEventListener('click', () => {
+                if (!this.mobileMenu) return;
+                this.mobileMenu.classList.remove('open');
+                if (this.toggleButton) {
+                    this.toggleButton.setAttribute('aria-expanded', 'false');
+                }
+            });
         });
+
+        window.addEventListener('scroll', this.handleScroll, { passive: true });
+    }
+
+    disconnectedCallback() {
+        this.toggleButton?.removeEventListener('click', this.handleToggle);
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleToggle() {
+        if (!this.mobileMenu || !this.toggleButton) return;
+        const isOpen = this.mobileMenu.classList.toggle('open');
+        this.toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    handleScroll() {
+        if (!this.header) return;
+        if (window.scrollY > 40) {
+            this.header.classList.add('is-condensed');
+        } else {
+            this.header.classList.remove('is-condensed');
+        }
     }
 }
 

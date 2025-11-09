@@ -1,152 +1,136 @@
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize AOS if available
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 1200,
-            once: true,
-            offset: 100,
-            easing: 'ease-out-cubic'
-        });
-    }
-
-    // Initialize GSAP only if available and not mobile
-    if (typeof gsap !== 'undefined' && window.innerWidth >= 768) {
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
-
-        // Hero parallax effect
-        const heroBg = document.querySelector('.hero-bg');
-        if (heroBg) {
-            gsap.to(heroBg, {
-                backgroundPosition: "50% 100%",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: heroBg,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const target = document.querySelector(targetId);
-                
-                if (target) {
-                    const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-                    const targetPosition = target.offsetTop - headerHeight;
-                    
-                    gsap.to(window, {
-                        duration: 1.2,
-                        scrollTo: {
-                            y: targetPosition,
-                            autoKill: false
-                        },
-                        ease: "power2.inOut"
-                    });
-                }
-            });
-        });
-
-        // Typewriter effect (if element exists)
-        const typewriterText = document.querySelector('.typewriter');
-        if (typewriterText) {
-            const text = typewriterText.textContent;
-            typewriterText.textContent = '';
-            
-            gsap.to(typewriterText, {
-                duration: 3,
-                text: text,
-                ease: "none",
-                delay: 2
-            });
-        }
-    }
-
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const nav = document.querySelector('nav');
-    
-    if (mobileMenuBtn && nav) {
-        mobileMenuBtn.addEventListener('click', () => {
-            nav.classList.toggle('hidden');
-            if (!nav.classList.contains('hidden') && typeof gsap !== 'undefined') {
-                gsap.fromTo(nav, 
-                    { opacity: 0, y: -20 },
-                    { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-                );
+document.addEventListener('DOMContentLoaded', () => {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
             }
         });
-    }
+    }, {
+        threshold: 0.2,
+    });
 
-    // Form submission handling
-    const form = document.querySelector('form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your anonymous submission. We will review it carefully.');
-            form.reset();
-        });
-    }
-});
-{
-            quote: "After my surgery, I suffered complications that were never properly addressed. I was left with permanent damage.",
-            name: "Anonymous Patient",
-            location: "Germany"
-        },
-        {
-            quote: "They promised world-class treatment but delivered substandard care. My medical documents were falsified.",
-            name: "John D.",
-            location: "USA"
-        },
-        {
-            quote: "The clinic lied about my diagnosis to justify unnecessary procedures that left me in worse condition.",
-            name: "Maria S.",
-            location: "Spain"
+    document.querySelectorAll('[data-reveal]').forEach((element) => {
+        if (!element.classList.contains('is-visible')) {
+            revealObserver.observe(element);
         }
+    });
+
+    document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('a[href^="#"]');
+        if (!trigger) return;
+
+        const href = trigger.getAttribute('href');
+        if (href.length <= 1) return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        event.preventDefault();
+        const headerOffset = document.querySelector('custom-navbar')?.offsetHeight || 0;
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerOffset - 16;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth',
+        });
+    });
+
+    const testimonials = [
+        {
+            quote: 'On m’a garanti une bouche parfaite en quatre jours. Trois mois plus tard, je souffrais d’infections répétées et aucune réponse de la clinique.',
+            name: 'Catherine',
+            location: 'France',
+        },
+        {
+            quote: 'Ils ont refusé de me transmettre mon dossier médical. Mes implants se sont desserrés en deux semaines et j’ai dû tout refaire en Allemagne.',
+            name: 'Murat',
+            location: 'Allemagne',
+        },
+        {
+            quote: 'Le chirurgien a taillé des dents saines sans mon consentement. Aujourd’hui je vis avec des douleurs quotidiennes.',
+            name: 'Ana',
+            location: 'Espagne',
+        },
+        {
+            quote: 'On m’a menacé de poursuites parce que j’ai voulu témoigner. Leur service juridique est plus réactif que leur service médical.',
+            name: 'Luca',
+            location: 'Italie',
+        },
     ];
 
-    const slider = document.querySelector('.testimonial-slider');
-    testimonials.forEach(testimonial => {
-        const card = document.createElement('div');
-        card.className = 'fact-card bg-white p-8 rounded-xl shadow-md';
-        card.innerHTML = `
-            <p class="text-gray-600 italic mb-4">"${testimonial.quote}"</p>
-            <div class="border-t pt-4">
-                <p class="font-bold">${testimonial.name}</p>
-                <p class="text-sm text-gray-500">${testimonial.location}</p>
-            </div>
-        `;
-        slider.appendChild(card);
-    });
-        // Enhanced smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const target = document.querySelector(targetId);
-                if (target) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = target.offsetTop - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+    const track = document.querySelector('.testimonial-track');
+    const prevBtn = document.querySelector('[data-slider-prev]');
+    const nextBtn = document.querySelector('[data-slider-next]');
+
+    if (track) {
+        track.innerHTML = testimonials.map((item) => `
+            <article class="testimonial-card">
+                <p class="testimonial-quote">“${item.quote}”</p>
+                <div class="testimonial-meta">
+                    <span>${item.name}</span>
+                    <span>•</span>
+                    <span>${item.location}</span>
+                </div>
+            </article>
+        `).join('');
+
+        let index = 0;
+        const maxIndex = testimonials.length - 1;
+        let autoSlideId;
+
+        const updateSlider = () => {
+            track.style.transform = `translateX(-${index * 100}%)`;
+        };
+
+        const startAutoSlide = () => {
+            stopAutoSlide();
+            autoSlideId = window.setInterval(() => {
+                index = index >= maxIndex ? 0 : index + 1;
+                updateSlider();
+            }, 7000);
+        };
+
+        const stopAutoSlide = () => {
+            if (autoSlideId) {
+                window.clearInterval(autoSlideId);
+                autoSlideId = undefined;
+            }
+        };
+
+        prevBtn?.addEventListener('click', () => {
+            stopAutoSlide();
+            index = index <= 0 ? maxIndex : index - 1;
+            updateSlider();
+            startAutoSlide();
         });
-// Form submission handling
+
+        nextBtn?.addEventListener('click', () => {
+            stopAutoSlide();
+            index = index >= maxIndex ? 0 : index + 1;
+            updateSlider();
+            startAutoSlide();
+        });
+
+        startAutoSlide();
+    }
+
     const form = document.querySelector('form');
     if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your anonymous submission. We will review it carefully.');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const button = form.querySelector('button[type="submit"]');
+            if (button) {
+                button.disabled = true;
+                button.textContent = 'Message envoyé';
+            }
             form.reset();
+            window.setTimeout(() => {
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = 'Envoyer mon témoignage';
+                }
+            }, 4000);
         });
     }
 });
