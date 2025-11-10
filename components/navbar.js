@@ -3,7 +3,6 @@ class CustomNavbar extends HTMLElement {
         super();
         this.handleToggle = this.handleToggle.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
-        this.handleLinkClick = this.handleLinkClick.bind(this);
     }
 
     connectedCallback() {
@@ -313,6 +312,28 @@ class CustomNavbar extends HTMLElement {
             top: Math.max(0, targetOffset),
             behavior: 'smooth',
         });
+
+        window.addEventListener('scroll', this.handleScroll, { passive: true });
+    }
+
+    disconnectedCallback() {
+        this.toggleButton?.removeEventListener('click', this.handleToggle);
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleToggle() {
+        if (!this.mobileMenu || !this.toggleButton) return;
+        const isOpen = this.mobileMenu.classList.toggle('open');
+        this.toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    handleScroll() {
+        if (!this.header) return;
+        if (window.scrollY > 40) {
+            this.header.classList.add('is-condensed');
+        } else {
+            this.header.classList.remove('is-condensed');
+        }
     }
 
     handleScroll() {
