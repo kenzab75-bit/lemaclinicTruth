@@ -79,11 +79,11 @@ class CustomFooter extends HTMLElement {
                     <div class="brand">LemaClinic <span>Truth</span></div>
                     <nav class="footer-links" aria-label="Navigation secondaire">
                         <a href="#accueil">Accueil</a>
+                        <a href="#histoire">Mon histoire</a>
                         <a href="#enquetes">Enquête</a>
                         <a href="#parcours">Comprendre</a>
                         <a href="#temoignages">Témoignages</a>
                         <a href="#faq">FAQ</a>
-                        <a href="#temoigner">Agir</a>
                     </nav>
                 </div>
                 <div class="footer-bottom">
